@@ -1,0 +1,37 @@
+.custom-image-file {
+    border: #cccbcb dashed 2px;
+    cursor: pointer;
+    padding: 1px;
+    width: 156px;
+    background: #ffff;
+    height: 156px;
+    text-align: center;
+}
+
+.custom-image-file-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.custom-image-file-preview img {
+    width: 150px;
+    height: 150px;
+}
+
+
+.image-file-controller {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+}
+
+.custom-image-file-preview .btn {
+    position: absolute;
+    top: 55px;
+    left: 60px;
+    color: white;
+}

@@ -1,0 +1,1 @@
+<x-ui::layout title="Dashboard"></x-ui::layout>

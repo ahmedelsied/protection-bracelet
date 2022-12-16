@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+use App\Http\Controllers\Controller;
+use App\Support\Dashboard\Crud\WithDatatable;
+use App\Support\Dashboard\Crud\WithDestroy;
+use App\Support\Dashboard\Crud\WithForm;
+use App\Support\Dashboard\Crud\WithStore;
+use App\Support\Dashboard\Crud\WithUpdate;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Controller
+{
+    use WithDatatable,  WithForm , WithStore ,WithUpdate , WithDestroy;
+
+    protected string $path = '{{ path }}';
+
+}

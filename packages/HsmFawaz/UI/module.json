@@ -1,0 +1,13 @@
+{
+    "name": "UI",
+    "alias": "ui",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UI\\Providers\\UIServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
