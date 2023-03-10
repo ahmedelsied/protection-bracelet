@@ -1,4 +1,4 @@
-# Codebase Starter Project
+# Protection Bracelet Project
 
 **Project template with basic features for every project**
 
