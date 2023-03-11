@@ -150,7 +150,7 @@
                         <!--end::Menu item-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5 my-1">
-                            <a href="{{ route('dashboard.core.administration.profile') }}"
+                            <a href="{{ route('dashboard.management.profile') }}"
                                class="menu-link px-5"> {{ __('Account Settings') }}</a>
                         </div>
                         <!--end::Menu item-->

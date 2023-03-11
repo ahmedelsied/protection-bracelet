@@ -181,9 +181,9 @@ abstract class BaseDatatable extends DataTable
         $actions = [];
 
         if (in_array(
-            'show',
+            'read',
             $currentActions
-        ) && (! $this->permission || $this->permission->can('show'))) {
+        ) && (! $this->permission || $this->permission->can('read'))) {
             $actions[] = Blade::render(File::get(__DIR__.'/actions/show_button.blade.php'), [
                 'route' => route($this->route.'.show', $model),
             ]);

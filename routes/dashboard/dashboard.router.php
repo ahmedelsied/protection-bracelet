@@ -14,6 +14,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
                  ->name('change-language');
 
             require __DIR__.'/management.routes.php';
+            require __DIR__.'/child.routes.php';
         });
     });
 });

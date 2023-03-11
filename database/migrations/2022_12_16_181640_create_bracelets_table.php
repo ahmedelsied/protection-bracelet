@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('bracelets', function (Blueprint $table) {
             $table->id();
+            $table->string('child_name',100);
             $table->string('code',100)->unique();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
