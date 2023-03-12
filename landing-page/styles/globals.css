@@ -1,0 +1,43 @@
+@font-face {
+    src:url('../public/fonts/kanit-regular.otf');
+    font-family: 'kanit Regular'
+}
+@font-face {
+    src:url('../public/fonts/kanit-black.otf');
+    font-family: 'kanit Black'
+}
+@font-face {
+    src:url('../public/fonts/kanit-light.otf');
+    font-family: 'kanit Light'
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #171115;
+    color: white;
+    font-family: kanit Regular;
+}
+
+.shadow-circle::before,.shadow-circle::after  {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(35px);
+    background: rgb(104, 7, 85);
+    background: radial-gradient(circle, rgb(104, 7, 85) 23% , rgb(74, 17, 63) 52%, rgb(62, 18, 59) 44%);
+    z-index: -1;
+}
+.shadow-circle::before{
+    width: 270px;
+    height: 270px;
+    top: 34%;
+    left: 25%;
+}
+.shadow-circle::after{
+    width: 282px;
+    height: 205px;
+    top: 73%;
+    left: 843px;
+}

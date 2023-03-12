@@ -1,0 +1,17 @@
+.star::after{
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: #8319a0;
+    margin-top: -50px;
+    position: absolute;
+    top: 41px;
+    right: -9px;
+    transform: rotateZ(45deg);
+}
+
+@media (max-width: 1279px) { 
+    .star::after{
+        display: none;
+    }
+}
