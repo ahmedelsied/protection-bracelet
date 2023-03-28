@@ -23,9 +23,9 @@ class BraceletController extends DashboardController
     protected array $permissions = [ChildPermissions::class, 'bracelets'];
 
 
-    public function show()
+    public function show(Bracelet $bracelet)
     {
-        
+        return view('dashboard.child.bracelets.show',compact('bracelet'));
     }
 
     protected function storeAction(array $validated)
