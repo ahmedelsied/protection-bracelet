@@ -1,4 +1,4 @@
-import Style from '../styles/contact.module.css'
+import Style from '../styles/borderGradient.module.css'
 
 export default function Contact() {
     return (

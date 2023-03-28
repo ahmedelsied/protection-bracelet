@@ -59,7 +59,7 @@ function Navbar() {
             {
               liElements.map((element,i) => {
                 return(
-                  <li key={i}>
+                  <li key={i} onClick={() => setDrop(false)}>
                     <Link
                       href={element.li[0]}
                       className={styleli}

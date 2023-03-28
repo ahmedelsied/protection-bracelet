@@ -20,7 +20,7 @@ export default function Layout({ children }) {
   ]
 
   return (
-    <div className='relative shadow-circle max-w-[1440px] m-auto overflow-x-hidden'>
+    <div className='relative shadow-circle max-w-[1440px] m-auto max-[1440px]:overflow-x-hidden'>
       <Head>
         <meta name="description" content="protection bracelet for children" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,9 +45,10 @@ export default function Layout({ children }) {
               </div>
       </div>
 
-      <main className=" min-h-[647px] h-[calc(100vh-128px)] grid content-center">
+      <main className="h-[calc(100vh-128px)] grid content-center">
         {children}
       </main>
     </div>
   );
 }
+// min-h-[646px]

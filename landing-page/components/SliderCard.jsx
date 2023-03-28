@@ -1,43 +1,57 @@
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion"
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function SliderCard({cards}) {
-  const carouselRef = useRef();
-  const [width, setWidth] = useState(0);
+  const refSider = useRef()
+  const refAnimate = useRef()
 
-  useEffect(() => {
-    let carousel = carouselRef.current;
-    setWidth(carousel.scrollWidth - carousel.offsetWidth);
-  }, []);
+  let circles = []
+  let valAnimate = [-40,0,40]
+
+  const activeHandler = (i) => {
+    let slider = refSider.current
+    let scrollWidthSlider = slider.scrollWidth
+    let offSetSlider = scrollWidthSlider / circles.length
+    refAnimate.current.style.transform = `translateX(${valAnimate[i]}px)`
+    slider.style.transform = `translateX(${- offSetSlider * i}px)`
+  }
+
+  const createCircleHandler = () => {
+    return circles?.map( (circle) =>  (
+      <div key={circle} className='cursor-pointer rounded-3xl w-5 h-5 bg-slate-50' onClick={()=> activeHandler(circle)}></div>
+    ))
+  }
 
   return (
-    <motion.div ref={carouselRef} className="overflow-x-hidden m-auto w-4/5 h-4/5 border-2 bg-[#161616]  border-gray-100 rounded-xl" onClick={(e)=>  e.stopPropagation() }>
-      <motion.div drag="x" dragConstraints={{ right: 0, left: -(width) }} className="flex gap-3 w-full h-full">
-        {
-          cards?.map(({ img, title, text }) => (
+    <>
+      <div className={`relative overflow-x-hidden bg-[rgb(22,22,22)] m-auto border-white border-2 rounded-lg`} onClick={(e)=>  e.stopPropagation()}>
+        <div className="flex w-[70vw] h-[70vh] transform duration-500 ease-in-out" ref={refSider}>
+          {
+            cards?.map(({ img, title, text } ,index) => { {circles[index] = index}
+              return (
+                <div key={title} className=" px-5 py-5 grid md:gap-10 md:grid-cols-2 shrink-0 w-full items-center">
+                  <div className="">
+                    <p className=" " style={{fontSize: 'calc(18px + 1vw)'}}>{title}</p>
+                    <p className="text-lg max-md:py-9 md:pt-12 " style={{fontSize: 'calc(10px + 0.5vw)'}}>{text}</p>
+                  </div>
+                  <div className="relative" style={{height: 'calc(200px + 20vmin)'}}>
+                    <Image
+                      className=""
+                      alt="Medium card"
+                      src={img}
+                      fill
+                    />
+                  </div>
+                </div>
+            )})
+          }
+        </div>
+      </div>
+    <div className="relative flex mt-5 justify-center gap-5 py-4" onClick={(e)=>  e.stopPropagation()}>
+      <div className="absolute rounded-3xl w-5 h-5 transition duration-500 ease-in-out bg-[#55043ab8] -translate-x-10" ref={refAnimate}></div>
+      { createCircleHandler() }
+    </div>
 
-            <motion.div key={title} className="px-3 shrink-0 cursor-pointer grid lg:grid-cols-2 w-[inherit] min-h-[616px] h-[inherit] items-center justify-items-center">
-              <div className="pl-10">
-                <p className=" max-sm:text-lg sm:text-2xl lg:text-5xl mb-14">{title}</p>
-                <p className=" font-kLight">{text}</p>
-              </div>
-              <div className="relative pointer-events-none w-1/2 h-2/3 lg:w-[80%] lg:h-[64%] ">
-                <Image
-                  className="rounded-xl"
-                  alt="Medium card"
-                  src={img}
-                  fill
-                  sizes="(max-width: 768px) 100vw,
-                    (max-width: 1200px) 50vw,
-                    33vw"
-                />
-
-              </div>
-            </motion.div>
-          ))
-        }
-      </motion.div>
-    </motion.div>
+    </>
   );
 }
