@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Style from '../styles/borderGradient.module.css'
 
 export default function Join() {
 
@@ -45,14 +46,14 @@ const Login = () => {
       <form>
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Your email</label>
-          <input type="email" autoComplete="off" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required />
+          <input type="email" autoComplete="off" id="email" className={`${ Style.gradient} outline-none bg-[#ffffff05] shadow-sm text-sm rounded-lg block w-full p-2.5`} placeholder="name@example.com" required />
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Your password</label>
-          <input type="password" autoComplete="off" id="password" className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+          <input type="password" autoComplete="off" id="password" className={`${ Style.gradient} outline-none bg-[#ffffff05] shadow-sm text-sm rounded-lg block w-full p-2.5`} required />
         </div>
 
-        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">submit</button>
+        <button type="submit" className={`${ Style.gradient} outline-none bg-[#ffffff05] text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center`} >submit</button>
       </form>
     </section>
   )
@@ -64,23 +65,23 @@ const Rigester = () => {
       <form>
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Your full name</label>
-          <input type="text" autoComplete="off" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Mohamed Saad" required />
+          <input type="text" autoComplete="off" id="email" className={`${ Style.gradient} outline-none bg-[#ffffff05] shadow-sm text-sm rounded-lg block w-full p-2.5`} placeholder="Mohamed Saad" required />
         </div>
         <div className="mb-6">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Your email</label>
-          <input type="email" autoComplete="off" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required />
+          <input type="email" autoComplete="off" id="email" className={`${ Style.gradient} outline-none bg-[#ffffff05] shadow-sm text-sm rounded-lg block w-full p-2.5`} placeholder="name@example.com" required />
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Your password</label>
-          <input type="password" autoComplete="off" id="password" className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+          <input type="password" autoComplete="off" id="password" className={`${ Style.gradient} outline-none bg-[#ffffff05] shadow-sm  text-sm rounded-lg block w-full p-2.5`} required />
         </div>
         <div className="flex items-start mb-6">
           <div className="flex items-center h-5">
-            <input id="terms" type="checkbox" value="" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 " required />
+            <input id="terms" type="checkbox" value="" className={`${ Style.gradient} outline-none bg-[#ffffff05] w-4 h-4 rounded `} required />
           </div>
-          <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
+          <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-300">I agree with the <a href="#" className="hover:underline text-blue-500">terms and conditions</a></label>
         </div>
-        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">submit</button>
+        <button type="submit" className={`${ Style.gradient} outline-none bg-[#ffffff05] text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center `} >submit</button>
       </form>
     </section>
   )

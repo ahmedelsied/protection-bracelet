@@ -19,9 +19,9 @@ export default function Home() {
   const [slider, setSlider] = useState(false)
 
   const imgElements = [
-    {src: Img1, alt: 'circle'},
-    {src: Img2, alt: 'watch'},
-    {src: Img3, alt: 'circle_center'},
+    {src: Img1, alt: 'circle', style: 'absolute h-full'},
+    {src: Img2, alt: 'watch', style: `${Style.animation} h-full max-md:translate-x-[calc((50vw-440px))]`},
+    {src: Img3, alt: 'circle_center', style: 'absolute h-full'},
 ]
 
   const imgsCard = [
@@ -33,7 +33,7 @@ export default function Home() {
 
   let intervals = null
 
-  const fadeHandler =  () => {
+  const fadeOutHandler =  () => {
     refFade.current.style.opacity = 0
     intervals = setTimeout(() => { setSlider(false) }, 500)
   }
@@ -52,7 +52,7 @@ export default function Home() {
       </Head>
       {
         slider && (
-          <div className='opacity-0 fixed w-full h-full top-0 left-0 bg-[#171115] z-50 flex transition duration-500 ease-in-out' ref={refFade} onClick={()=>fadeHandler()}>
+          <div className='content-center grid opacity-0 fixed w-full h-full top-0 left-0 bg-[#171115] z-50 transition duration-500 ease-in-out' ref={refFade} onClick={()=>fadeOutHandler()}>
             <SliderCard cards={imgsCard} />
           </div>
         )
@@ -64,7 +64,7 @@ export default function Home() {
               {
                 imgElements.map((element,i) => {
                   return (
-                    <div className='absolute h-full' key={i}>
+                    <div className={element.style} key={i}>
                       <Image src={element.src} className="object-contain h-full" alt={element.alt}/>
                     </div>
                   )
@@ -81,7 +81,7 @@ export default function Home() {
                   <h1 className=' text-8xl xl:text-[160px] font-kBlack text-center sm:max-xl:text-9xl'>PBV.0</h1>
                   <div className={`${Style.star} relative flex xl:justify-evenly select-none xl:ml-7 py-12 xl:border-2 xl:border-r-0 border-[#8319a0] rounded-l-full`}>
                     <div className='px-8 py-2 sm:px-11 rounded-3xl border-2 border-[#8319a0] cursor-pointer max-xl:mr-7' onClick={()=> setSlider(true)}> See More</div>
-                    <Link className='px-8 py-2 sm:px-11 rounded-3xl border-2 border-[#8319a0] cursor-pointer' href="/join">Shop now</Link>
+                    <Link className='px-8 py-2 sm:px-11 rounded-3xl border-2 border-[#8319a0] cursor-pointer' href="/contact">Shop now</Link>
                   </div>
                   <p className='w-9/12 xl:mt-6 xl:ml-10 font-kLight max-xl:max-w-[400px]'>Track your children,grandparents or whoecer you want now, easily and with a complete dashboard show live location, body temperature and heart beats minute by minute.</p>
                 </div>

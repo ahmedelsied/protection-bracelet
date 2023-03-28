@@ -1,5 +1,5 @@
-.star::after{
-    content: '';
+.star::after {
+    content: "";
     width: 15px;
     height: 15px;
     background: #8319a0;
@@ -10,8 +10,21 @@
     transform: rotateZ(45deg);
 }
 
-@media (max-width: 1279px) { 
-    .star::after{
+@media (max-width: 1279px) {
+    .star::after {
         display: none;
+    }
+}
+.animation {
+    position: absolute;
+    animation: up-and-down 5s linear infinite;
+}
+@keyframes up-and-down {
+    0%,
+    100% {
+        top: 0;
+    }
+    50% {
+        top: -50px;
     }
 }

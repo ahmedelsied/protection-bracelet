@@ -1,0 +1,19 @@
+.arrowLeft::after , .arrowRight::before {
+    content: ''; 
+    width: 20px; 
+    height: 20px;
+    cursor: pointer;
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+}
+
+.arrowRight::before {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.arrowLeft::after {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
