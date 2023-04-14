@@ -2,7 +2,7 @@
     <x-slot:actions>
     </x-slot:actions>
     <x-slot:scripts>
-        {{-- @customvite('src/index.ts','vendor/bracelet/statistics') --}}
+        @customvite('src/index.ts','vendor/bracelet/statistics')
     </x-slot:scripts>
 
 </x-ui::layout>
