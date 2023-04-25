@@ -20,8 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['namespace' => 'App\Http\Controllers\API'], function () {
+    Route::group(['prefix' => 'hardware', 'namespace' => 'Hardware'], function(){
+        Route::get('/esp/save','ESPController@index');
+    });
     Route::get('/test-esp', 'IndexController@index');
     Route::group(['namespace' => 'Child', 'prefix' => 'child', 'as' => 'child.'], function () {
-        Route::post('/bracelet/{bracelet}/filter', 'BraceletController@filter')->name('bracelet.filter');
+        Route::get('/bracelet/{bracelet}/filter', 'BraceletController@filter')->name('bracelet.filter');
+        Route::get('/bracelet/{bracelet}/sync', 'BraceletController@syncBraceletMeasurement')->name('bracelet.sync');
     });
 });

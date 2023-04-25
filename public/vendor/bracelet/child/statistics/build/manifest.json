@@ -1,0 +1,34 @@
+{
+  "src/components/HeartTempAxisStockChart.jsx": {
+    "file": "assets/HeartTempAxisStockChart-ea0e9a7a.js",
+    "imports": [
+      "src/main.jsx"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/HeartTempAxisStockChart.jsx"
+  },
+  "src/components/Maps.jsx": {
+    "file": "assets/Maps-fc20994c.js",
+    "imports": [
+      "src/main.jsx"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/components/Maps.jsx"
+  },
+  "src/main.css": {
+    "file": "assets/main-a41cec96.css",
+    "src": "src/main.css"
+  },
+  "src/main.jsx": {
+    "css": [
+      "assets/main-a41cec96.css"
+    ],
+    "dynamicImports": [
+      "src/components/Maps.jsx",
+      "src/components/HeartTempAxisStockChart.jsx"
+    ],
+    "file": "assets/main-c8115435.js",
+    "isEntry": true,
+    "src": "src/main.jsx"
+  }
+}
