@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('bracelet_measurements', function (Blueprint $table) {
             $table->id();
-            $table->unsignedSmallInteger('heart_beats_rate')->nullable();
-            $table->unsignedSmallInteger('temperature_rate')->nullable();
-            $table->string('latitude',70)->nullable();
-            $table->string('longitude',70)->nullable();
+            $table->string('heart_beats_rate')->nullable();
+            $table->string('temperature_rate')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->foreignId('bracelet_id')->constrained();
             $table->timestamps();
         });
