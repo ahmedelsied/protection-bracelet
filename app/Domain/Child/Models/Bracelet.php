@@ -15,4 +15,8 @@ class Bracelet extends Model
     {
         $q->whereUserId(auth()->id());
     }
+    public function measurements()
+    {
+        return $this->hasMany(BraceletMeasurement::class);
+    }
 }
