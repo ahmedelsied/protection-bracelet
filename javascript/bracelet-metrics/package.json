@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.15.1",
-    "laravel-vite-plugin": "^0.7.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rsuite": "^5.31.1"

@@ -1,23 +1,38 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
+const loader = new Loader({
+  apiKey: "AIzaSyDIjXXnDF_9_DxPKiXamCzgkZFrwENWJHc",
+  version: "weekly",
+});
+
+var map, startMarker, endMarker = { setMap:function(){} }
+
 const ManTrackMap = ({ trackPoints }) => {
+
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const boundsRef = useRef(null);
 
   useEffect(() => {
-    const loader = new Loader({
-      apiKey: "AIzaSyDIjXXnDF_9_DxPKiXamCzgkZFrwENWJHc",
-      version: "weekly",
-    });
-
     loader.load().then(() => {
-      const map = new google.maps.Map(mapRef.current, {
+      map = new google.maps.Map(mapRef.current, {
         center: { lat: 17.7749, lng: -112.4194 },
         zoom: 11, // Change zoom level to 11
+      })
+
+      startMarker = new google.maps.Marker({
+        position: trackPoints[0],
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|42EF54',
+        map,
+        title: "Start",
       });
 
+    });
+  }, []);
+
+  useEffect(() => {
+    loader.load().then(() => {
       const trackPath = new google.maps.Polyline({
         path: trackPoints,
         geodesic: true,
@@ -28,37 +43,35 @@ const ManTrackMap = ({ trackPoints }) => {
 
       trackPath.setMap(map);
 
-      const startMarker = new google.maps.Marker({
-        position: trackPoints[0],
-        map,
-        title: "Start",
-      });
+    
 
-      const endMarker = new google.maps.Marker({
+      endMarker = new google.maps.Marker({
         position: trackPoints[trackPoints.length - 1],
         map,
         title: "End",
       });
 
       markersRef.current = [startMarker, endMarker];
-
       boundsRef.current = new google.maps.LatLngBounds();
+
       trackPoints.forEach((point) => {
         boundsRef.current.extend(point);
       });
 
       map.fitBounds(boundsRef.current);
     });
+    
+    return () => endMarker.setMap(null);
+
   }, [trackPoints]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (markersRef.current.length > 0) {
       markersRef.current[0].setPosition(trackPoints[0]);
       markersRef.current[1].setPosition(trackPoints[trackPoints.length - 1]);
     }
-
     if (boundsRef.current && mapRef.current) {
-      mapRef.current.fitBounds(boundsRef.current);
+      // mapRef.current.fitBounds(boundsRef.current);
     }
   }, [trackPoints]);
 
