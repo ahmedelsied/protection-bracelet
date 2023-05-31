@@ -17,8 +17,7 @@ class DataConversionClass {
 
     conversionHandler(data) {
 
-      let manTrack = [], pointsSensor = [];
-
+      let allData = [], manTrack = [], pointsSensor = [];
       data.data.forEach(obj => {
 
         let since = obj.since
@@ -35,7 +34,9 @@ class DataConversionClass {
 
         });
       });
-      return[manTrack,pointsSensor]
+
+      allData = [manTrack,pointsSensor]
+      return allData
     }
 }
 

@@ -1,6 +1,4 @@
-import DataConversionClass from "./dataConversionClass";
-
-
+import DataConversionClass from "./DataConversionClass";
 
 function fakeDataSync (){
     let d = new Date();
@@ -32,28 +30,20 @@ function fakeDataSync (){
     }
 }
 
-
 class ApiClass {
-    constructor(){
-        this.globleData = [];
-    }
 
-    async apiInitialRequest(anyState) {
+    async apiInitialRequest() {
 
         const [from , to] = DataConversionClass.formatDateHandler(new Date())
-        
-        const data = await  this.apiFilterRequest(from, to);
-        const [manTrack, pointsSensor] = DataConversionClass.conversionHandler(data);
-
-        let stringify = anyState ? manTrack : pointsSensor;
-
-        return stringify;
-
+        const filterRequest = await  this.apiFilterRequest(from, to);
+        const data = DataConversionClass.conversionHandler(filterRequest);
+        return data
     }
     
     async apiFilterRequest(from,to) {
 
         const res = await fetch(
+            // `{{protection-bracelet-host}}/child/bracelet/:bracelet/filter?from=${from}&to=${to}`
             `https://mega-two.vercel.app/fakeDataFilter.json`
             ).then((res) => res.json() )
 

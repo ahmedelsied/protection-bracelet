@@ -9,7 +9,7 @@ const loader = new Loader({
 var map, startMarker, endMarker = { setMap:function(){} }
 
 const ManTrackMap = ({ trackPoints }) => {
-
+  
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const boundsRef = useRef(null);
@@ -32,8 +32,9 @@ const ManTrackMap = ({ trackPoints }) => {
   }, []);
 
   useEffect(() => {
+    let trackPath = {}
     loader.load().then(() => {
-      const trackPath = new google.maps.Polyline({
+      trackPath = new google.maps.Polyline({
         path: trackPoints,
         geodesic: true,
         strokeColor: "#FF0000",
@@ -42,8 +43,6 @@ const ManTrackMap = ({ trackPoints }) => {
       });
 
       trackPath.setMap(map);
-
-    
 
       endMarker = new google.maps.Marker({
         position: trackPoints[trackPoints.length - 1],
@@ -61,7 +60,7 @@ const ManTrackMap = ({ trackPoints }) => {
       map.fitBounds(boundsRef.current);
     });
     
-    return () => endMarker.setMap(null);
+    return () => {endMarker.setMap(null); trackPath.setMap(null)};
 
   }, [trackPoints]);
 

@@ -8,7 +8,7 @@ function DataDisplay() {
   const [{maps,sensors}] =  PbvCtxEvents()
   return (
     <div className='grid grid-rows-2 justify-center items-center gap-5 pt-9'>
-        <Maps map={maps}/> 
+        <Maps map={maps} /> 
         <HeartTempAxisStockChart sensor={sensors} />
     </div>
   )

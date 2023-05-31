@@ -1,79 +1,70 @@
 import react, { useEffect, useState, useLayoutEffect } from "react";
-import DataConversionClass from "./dataConversionClass";
+import DataConversionClass from "./DataConversionClass";
 import ApiClass from "./ApiClass";
 // Create Global Context
 
 export const PbvContext = react.createContext(0);
 PbvContext.displayName = "pbv.0 Context";
+let clean = true
 
 const PbvCtxProvider = (props) => {
     
     const [sync, setSync] = useState(false)
-    const [startSync, setStartSync] = useState(false);
+    // const [clean, setClean] = useState(true)
+
+    const [dataStates, setDataStates] = useState({ maps:[], sensors:[] })
     //------------------------
 
-    const [maps, setMaps] = useState([])
-    const [sensors, setSensors] = useState([])
 
     function start_Sync_Handler() {
         console.log('start_Sync_Handler')
         setSync(true)
-        setStartSync(true)
     }
 
     function stop_Sync_Handler() {
         console.log("stop_Sync_Handler");
         setSync(false)
-        setStartSync(false)
     }
 
-    function setDataFilter(map,sensor) {
-        console.log('');
-        setMaps(map)
-        setSensors(sensor)
+    function setDataFilter(data) {
+        clean = true
+        setDataStates({ maps: data[0], sensors: data[1] });
     }
 
     useEffect(() => {
-        if(sync){
-            setMaps([])
-            setSensors([])
+        if(sync && clean){
+            clean = false
+            setDataStates({ maps:[], sensors:[] })
         }
     },[sync])
 
     useLayoutEffect(() => {
-
-        ApiClass.apiInitialRequest(true).then( (data) => {
-            setMaps(data);
-        }).then(() => 
-            ApiClass.apiInitialRequest(false)
-        ).then((data)=>
-            setSensors(data)
-        )
+        ApiClass.apiInitialRequest().then( (res) => {
+            setDataStates({ maps: res[0], sensors: res[1] });
+        })
     },[])
+
     useEffect(() => {
         let interval
-        if (startSync) {
+        if (sync) {
             interval = setInterval(() => {
-                ApiClass.apiSyncRequest().then((data) => {
-
-                    return DataConversionClass.conversionHandler(data)
-
-                }).then((data) => {
-                    setMaps((maps) => [...maps, data[0][0]]);
-                    setSensors((sensors) => [...sensors, data[1][0]])
-                });
+                ApiClass.apiSyncRequest().then((res) => {
+                    const data = DataConversionClass.conversionHandler(res)
+                    setDataStates(({maps,sensors}) => {
+                        return {
+                            "maps": [...maps , data[0][0]],
+                            "sensors": [...sensors , data[1][0]],
+                    }})
+                })
             }, 2000);
         }
         
         return () => clearInterval(interval)
 
-    },[sensors,startSync]);
+    },[dataStates,sync]);
 
     const values = {
-        data: {
-            maps,
-            sensors
-        },
+        dataStates,
         start_Sync_Handler,
         stop_Sync_Handler,
         setDataFilter

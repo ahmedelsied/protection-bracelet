@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DateRangePicker, Button, ButtonToolbar, Checkbox, Loader } from "rsuite";
 import "rsuite/dist/rsuite.css";
 import PbvCtxEvents from '../contextsHook/pbvCtxEvents'
-import dataConversionClass from "../contextsHook/dataConversionClass"
+import DataConversionClass from "../contextsHook/DataConversionClass"
 import ApiClass from "../contextsHook/ApiClass"
 
 const { allowedMaxDays, afterToday, combine } = DateRangePicker;
@@ -44,19 +44,22 @@ function HeaderContent() {
   function rangePickerHandler(e) {
     let from = e[0]
     let to = e[1]
-    dateRange = dataConversionClass.formatDateHandler(from,to)
+    dateRange = DataConversionClass.formatDateHandler(from,to)
   }
 
   function sendHandler() {
-    console.log('sendHandler')
-    ApiClass.apiFilterRequest(dateRange[0], dateRange[1]).then((data) => {
-      const [manTrack,pointsSensor] = dataConversionClass.conversionHandler(data)
-      setDataFilter(manTrack,pointsSensor)
-    })
-  }
 
-  function resetHandler() {
-    console.log('resetHandler')
+    document.getElementsByClassName('rs-picker-toggle-clean')[0]?.click()
+
+    if(dateRange.length != 0){
+      ApiClass.apiFilterRequest(dateRange[0], dateRange[1]).then((res) => {
+        dateRange = []
+        const data  = DataConversionClass.conversionHandler(res)
+        setDataFilter(data)
+      })
+    }else{
+      console.log(dateRange);
+    }
   }
 
   return (
@@ -67,9 +70,6 @@ function HeaderContent() {
         />
 
         <ButtonToolbar>
-          <Button color="cyan" appearance="primary" onClick={ () => resetHandler() }>
-            Reset
-          </Button>
           <Button color="blue" appearance="primary" onClick={ () => sendHandler() }>
             Send
           </Button>

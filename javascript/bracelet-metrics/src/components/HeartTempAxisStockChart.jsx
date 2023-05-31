@@ -2,21 +2,24 @@ import React, { Component } from "react";
 import CanvasJSReact from "../assets/js/canvasjs.stock.react";
 
 var CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
-
+let firstLoad = false
 class HeartTempAxisStockChart extends Component {
+
+    //Mounting : before render()
     constructor(props) {
         super(props);
-        this.state = { nisLoaded: false }
+        this.state = { 
+            isLoaded: false,
+            increase: 0,
+            dataFromProps: []
+        }
         this.dataPoints1 = [];
         this.dataPoints2 = [];
         this.dataPoints3 = [];
     }
 
-    componentDidMount() {
-        let dps1 = [],
-            dps2 = [],
-            dps3 = [],
-            data = this.props.sensor
+    setDataPoints (data){
+        let dps1 = [], dps2 = [], dps3 = []
         for (var i = 0; i < data.length; i++) {
             dps1.push({
                 x: new Date(data[i].date),
@@ -31,34 +34,37 @@ class HeartTempAxisStockChart extends Component {
                 y: Number(data[i].heart_rate),
             });
         }
-        this.setState({ isLoaded: true })
         this.dataPoints1 = dps1;
         this.dataPoints2 = dps2;
         this.dataPoints3 = dps3;
     }
 
-    componentDidUpdate() {
-        let dps1 = [],
-            dps2 = [],
-            dps3 = [],
-            data = this.props.sensor
-        for (var i = 0; i < data.length; i++) {
-            dps1.push({
-                x: new Date(data[i].date),
-                y: Number(data[i].heart_rate),
-            });
-            dps2.push({
-                x: new Date(data[i].date),
-                y: Number(data[i].temp_sensor),
-            });
-            dps3.push({
-                x: new Date(data[i].date),
-                y: Number(data[i].heart_rate),
-            });
+    //Mounting and Updating : before render()
+    static getDerivedStateFromProps(props) { return {dataFromProps: props.sensor } }
+
+    //Mounting : after render()
+    componentDidMount() {
+        firstLoad = true
+        this.setDataPoints(this.state.dataFromProps)
+        this.setState({ isLoaded: true })
+    }  
+    // Updating : after render()
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+
+        let now = this.state.dataFromProps.length
+        let prev = prevState.dataFromProps.length
+        
+        if(now != prev && ! firstLoad && now != 0){
+            this.setState((increase) => increase++)
+            console.log('not equally');
         }
-        this.dataPoints1 = dps1;
-        this.dataPoints2 = dps2;
-        this.dataPoints3 = dps3;
+        return null
+    }
+
+    // Updating : before render()
+    componentDidUpdate() {        
+        this.setDataPoints(this.state.dataFromProps)
+        firstLoad= false
     }
 
     render() {
@@ -144,11 +150,13 @@ class HeartTempAxisStockChart extends Component {
             <div>
                 <h3 className=" mb-6">React StockChart with Date-Time Axis</h3>
                 {this.state.isLoaded && (
-                    <CanvasJSStockChart
-                        containerProps={containerProps}
-                        options={options}
-                        /* onRef = {ref => this.chart = ref} */
-                    />
+                    <>
+                        <CanvasJSStockChart
+                            containerProps={containerProps}
+                            options={options}
+                            /* onRef = {ref => this.chart = ref} */
+                        />
+                    </>
                 )}
             </div>
         );
