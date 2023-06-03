@@ -4,9 +4,14 @@ import { PbvContext } from "./ctxHook";
 
 const PbvCtxEvents = () => {
 
-    const {data} = useContext(PbvContext)
+    const {dataStates,start_Sync_Handler,stop_Sync_Handler,setDataFilter} = useContext(PbvContext)
 
-    return  [data]
+    return  [
+        dataStates,
+        start_Sync_Handler,
+        stop_Sync_Handler,
+        setDataFilter
+    ]
 }
 
 export default PbvCtxEvents
