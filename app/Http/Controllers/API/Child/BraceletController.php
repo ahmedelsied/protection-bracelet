@@ -7,6 +7,7 @@ use App\Domain\Child\Resources\BraceletMeasurementResource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Child\BraceletMeasurementFilterRequest;
 use App\Support\Services\APIResponse\ApiResponse;
+use Illuminate\Support\Carbon;
 
 class BraceletController extends Controller
 {
@@ -20,6 +21,9 @@ class BraceletController extends Controller
     public function syncBraceletMeasurement(Bracelet $bracelet)
     {
         $measurment = $bracelet->measurements()->selectRaw('*,DATE(created_at) as day')->latest()->limit(1)->first();
+        if(is_null($measurment)){
+            return ApiResponse::success([]);
+        }
         return ApiResponse::success(new BraceletMeasurementResource($measurment,false));
     }
 }

@@ -31,7 +31,9 @@ function fakeDataSync (){
 }
 
 class ApiClass {
-
+    constructor(){
+        this.host = 'http://192.168.1.51/api'
+    }
     async apiInitialRequest() {
 
         const [from , to] = DataConversionClass.formatDateHandler(new Date())
@@ -39,25 +41,24 @@ class ApiClass {
         const data = DataConversionClass.conversionHandler(filterRequest);
         return data
     }
-    
+
     async apiFilterRequest(from,to) {
 
         const res = await fetch(
             // `{{protection-bracelet-host}}/child/bracelet/:bracelet/filter?from=${from}&to=${to}`
-            `https://mega-two.vercel.app/fakeDataFilter.json`
+            `${this.host}/child/bracelet/1/filter?from=${from}&to=${to}`
             ).then((res) => res.json() )
 
         return res;
     }
 
     async apiSyncRequest() {
-        
-        // const res = await fetch(
-        //     "{{protection-bracelet-host}}/child/bracelet/:bracelet/sync"
-        // ).then((res) => res.json());
 
-        const res = fakeDataSync()
-        
+        const res = await fetch(
+            `${this.host}/child/bracelet/1/sync`
+        ).then((res) => res.json());
+
+        // const res = fakeDataSync()
         return res;
     }
 

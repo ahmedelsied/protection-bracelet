@@ -17,7 +17,7 @@ class BraceletMeasurementResource extends JsonResource
     {
 
         return [
-            'since'             =>  $this->collection ? $this->first()?->day : $this->created_at->format('Y-m-d'),
+            'since'             =>  $this->collection ? $this->first()?->day : $this->created_at?->format('Y-m-d'),
             'times'             =>  $this->times()
         ];
     }
@@ -32,7 +32,7 @@ class BraceletMeasurementResource extends JsonResource
                     'temperature_rate'  =>  $measurement->temperature_rate,
                     'latitude'          =>  $measurement->latitude,
                     'longitude'         =>  $measurement->longitude,
-                    'time'              =>  $measurement->created_at->format('h:i'),
+                    'time'              =>  $measurement->created_at?->format('h:i'),
                 ];
             });
         }else{
@@ -42,7 +42,7 @@ class BraceletMeasurementResource extends JsonResource
                 'temperature_rate'  =>  $this->temperature_rate,
                 'latitude'          =>  $this->latitude,
                 'longitude'         =>  $this->longitude,
-                'time'              =>  $this->created_at->format('h:i'),
+                'time'              =>  $this?->created_at->format('h:i'),
             ];
         }
         return $times;

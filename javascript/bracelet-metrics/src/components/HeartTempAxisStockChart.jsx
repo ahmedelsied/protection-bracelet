@@ -8,7 +8,7 @@ class HeartTempAxisStockChart extends Component {
     //Mounting : before render()
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             isLoaded: false,
             increase: 0,
             dataFromProps: []
@@ -47,13 +47,13 @@ class HeartTempAxisStockChart extends Component {
         firstLoad = true
         this.setDataPoints(this.state.dataFromProps)
         this.setState({ isLoaded: true })
-    }  
+    }
     // Updating : after render()
     getSnapshotBeforeUpdate(prevProps, prevState) {
 
         let now = this.state.dataFromProps.length
         let prev = prevState.dataFromProps.length
-        
+
         if(now != prev && ! firstLoad && now != 0){
             this.setState((increase) => increase++)
             console.log('not equally');
@@ -62,7 +62,7 @@ class HeartTempAxisStockChart extends Component {
     }
 
     // Updating : before render()
-    componentDidUpdate() {        
+    componentDidUpdate() {
         this.setDataPoints(this.state.dataFromProps)
         firstLoad= false
     }
@@ -98,7 +98,7 @@ class HeartTempAxisStockChart extends Component {
                     },
                     data: [
                         {
-                            name: "Heart Rate",
+                            name: "Heart Rate Data",
                             type: "line",
                             xValueFormatString: "DD MMM - HH:mm",
                             yValueFormatString: "C#.###",
@@ -123,7 +123,7 @@ class HeartTempAxisStockChart extends Component {
                     },
                     data: [
                         {
-                            name: "Temp Sensor",
+                            name: "Temperature Sensor",
                             type: "line",
                             xValueFormatString: "DD MMM - HH:mm",
                             yValueFormatString: "D#.###",
@@ -148,7 +148,7 @@ class HeartTempAxisStockChart extends Component {
         };
         return (
             <div>
-                <h3 className=" mb-6">React StockChart with Date-Time Axis</h3>
+                <h3 className=" mb-6">Data Chart</h3>
                 {this.state.isLoaded && (
                     <>
                         <CanvasJSStockChart

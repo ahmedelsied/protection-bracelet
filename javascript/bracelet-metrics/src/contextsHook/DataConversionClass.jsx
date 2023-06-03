@@ -1,42 +1,77 @@
 class DataConversionClass {
 
-    formatDateHandler (dateFrom , dateTo = 'default'){
-      
-      const date = dateFrom;
-      const year =  date.getFullYear()
-      const month =  date.getMonth() + 1
-    
-      const DayFrom = dateTo == 'default' ? date.getDate() - 7  : date.getDate()
-      const DayTo = dateTo == 'default' ? date.getDate() : dateTo.getDate()
+    formatDateHandler (fromRange , toRange = 'default'){
 
-      const from = `${year}-${month}-${DayFrom}`
-      const to = `${year}-${month}-${DayTo}`
+        toRange = toRange == 'default' ? new Date : toRange;
+        const date = fromRange;
+        const day =  date.getDate()
+        const year =  date.getFullYear()
+        const month =  date.getMonth() + 1
+
+        const dateTo = toRange;
+        const dayTo =  dateTo.getDate()
+        const yearTo =  dateTo.getFullYear()
+        const monthTo =  dateTo.getMonth() + 1
+
+      const from = `${year}-${month}-${day}`
+      const to = `${yearTo}-${monthTo}-${dayTo}`
 
       return [from , to]
     }
 
-    conversionHandler(data) {
+    getDateToday() {
+        const date = new Date();
+
+        let currentDay= String(date.getDate()).padStart(2);
+
+        let currentMonth = String(date.getMonth()+1).padStart(2);
+
+        let currentYear = date.getFullYear();
+
+        // we will display the date as DD-MM-YYYY
+
+        return `${currentDay}-${currentMonth}-${currentYear}`;
+    }
+
+    conversionHandler(response) {
 
       let allData = [], manTrack = [], pointsSensor = [];
-      data.data.forEach(obj => {
+      console.log(response.data,typeof response.data);
+      if(Array.isArray(response.data)){
 
-        let since = obj.since
 
-        obj.times.forEach(item => {
+        response.data?.forEach(obj => {
 
-          pointsSensor.push({
-            date: `${since} ${item.time}`,
-            heart_rate: item.heart_beats_rate,
-            temp_sensor: item.temperature_rate,
-          })
+            let since = obj?.since ?? getToday();
 
-          manTrack.push({ lat: item.latitude, lng: item.longitude })
+            obj?.times?.forEach(item => {
 
+            pointsSensor.push({
+                date: `${since} ${item.time}`,
+                heart_rate: item.heart_beats_rate,
+                temp_sensor: item.temperature_rate,
+            })
+
+            manTrack.push({ lat: item.latitude, lng: item.longitude })
+
+            });
         });
-      });
+      }else{
+        let obj = response.data;
+        let since = obj?.since ?? getDateToday();
+        let item = obj?.times;
 
-      allData = [manTrack,pointsSensor]
-      return allData
+        pointsSensor.push({
+            date: `${since} ${item?.time}`,
+            heart_rate: item?.heart_beats_rate,
+            temp_sensor: item?.temperature_rate,
+        })
+
+        manTrack.push({ lat: item?.latitude, lng: item?.longitude })
+
+      }
+        allData = [manTrack,pointsSensor]
+        return allData
     }
 }
 

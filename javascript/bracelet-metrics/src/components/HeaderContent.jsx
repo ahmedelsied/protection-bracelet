@@ -8,7 +8,7 @@ import ApiClass from "../contextsHook/ApiClass"
 const { allowedMaxDays, afterToday, combine } = DateRangePicker;
 
 const LaySync = ({checkedHandler}) => (
-    <div 
+    <div
       className="absolute top-0 left-0 w-full h-full cursor-pointer"
       onClick={ () => checkedHandler()}
       >
@@ -25,7 +25,7 @@ function HeaderContent() {
   const [spinner ,setSpinner] = useState(false)
   const [check,setCheck] = useState(false)
   const [{},start_Sync_Handler,stop_Sync_Handler,setDataFilter] =  PbvCtxEvents()
-  
+
   let dateRange = []
 
   function checkedHandler() {
@@ -40,7 +40,7 @@ function HeaderContent() {
     setCheck(false)
     setSpinner(false)
   }
-  
+
   function rangePickerHandler(e) {
     let from = e[0]
     let to = e[1]

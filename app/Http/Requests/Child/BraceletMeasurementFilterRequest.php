@@ -24,8 +24,8 @@ class BraceletMeasurementFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'from'  =>  'required|date|date_format:Y-m-d',
-            'to'    =>  'required|date|after:from|date_format:Y-m-d'
+            'from'  =>  'required',
+            'to'    =>  'required'
         ];
     }
 }
