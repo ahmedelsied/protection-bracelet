@@ -13,13 +13,13 @@ class BraceletController extends Controller
     public function filter(BraceletMeasurementFilterRequest $request, Bracelet $bracelet)
     {
         $validated = $request->validated();
-        $measurments = $bracelet->measurements()->whereBetween('created_at', [$validated['from'], $validated['to']])->get();
-        return ApiResponse::success(BraceletMeasurementResource::collection($measurments));
+        $measurments = $bracelet->measurements()->selectRaw('*,DATE(created_at) as day')->whereBetween('created_at', [$validated['from'], $validated['to']])->get()->groupBy('day');
+        return ApiResponse::success(BraceletMeasurementResource::collection($measurments)->flatten());
     }
 
     public function syncBraceletMeasurement(Bracelet $bracelet)
     {
-        $measurment = $bracelet->measurements()->latest()->limit(1)->first();
-        return ApiResponse::success(new BraceletMeasurementResource($measurment));
+        $measurment = $bracelet->measurements()->selectRaw('*,DATE(created_at) as day')->latest()->limit(1)->first();
+        return ApiResponse::success(new BraceletMeasurementResource($measurment,false));
     }
 }
