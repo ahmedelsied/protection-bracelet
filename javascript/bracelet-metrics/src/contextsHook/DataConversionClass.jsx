@@ -4,12 +4,12 @@ class DataConversionClass {
 
         toRange = toRange == 'default' ? new Date : toRange;
         const date = fromRange;
-        const day =  date.getDate()
+        const day =  date.getDate() - 1
         const year =  date.getFullYear()
         const month =  date.getMonth() + 1
 
         const dateTo = toRange;
-        const dayTo =  dateTo.getDate()
+        const dayTo =  dateTo.getDate() + 1
         const yearTo =  dateTo.getFullYear()
         const monthTo =  dateTo.getMonth() + 1
 

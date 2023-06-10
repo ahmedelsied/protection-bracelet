@@ -32,7 +32,7 @@ function fakeDataSync (){
 
 class ApiClass {
     constructor(){
-        this.host = 'http://192.168.1.51/api'
+        this.host = 'http://192.168.219.20/api'
     }
     async apiInitialRequest() {
 
@@ -45,7 +45,6 @@ class ApiClass {
     async apiFilterRequest(from,to) {
 
         const res = await fetch(
-            // `{{protection-bracelet-host}}/child/bracelet/:bracelet/filter?from=${from}&to=${to}`
             `${this.host}/child/bracelet/1/filter?from=${from}&to=${to}`
             ).then((res) => res.json() )
 

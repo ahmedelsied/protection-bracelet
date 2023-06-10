@@ -9,7 +9,7 @@ const loader = new Loader({
 var map, startMarker, endMarker = { setMap:function(){} }
 
 const ManTrackMap = ({ trackPoints }) => {
-  
+
   const mapRef = useRef(null);
   const markersRef = useRef([]);
   const boundsRef = useRef(null);
@@ -18,7 +18,7 @@ const ManTrackMap = ({ trackPoints }) => {
     loader.load().then(() => {
       map = new google.maps.Map(mapRef.current, {
         center: { lat: 17.7749, lng: -112.4194 },
-        zoom: 11, // Change zoom level to 11
+        zoom: 5, // Change zoom level to 11
       })
 
       startMarker = new google.maps.Marker({
@@ -59,18 +59,14 @@ const ManTrackMap = ({ trackPoints }) => {
 
       map.fitBounds(boundsRef.current);
     });
-    
+
     return () => {endMarker.setMap(null); trackPath.setMap(null)};
 
   }, [trackPoints]);
 
   useLayoutEffect(() => {
     if (markersRef.current.length > 0) {
-      markersRef.current[0].setPosition(trackPoints[0]);
-      markersRef.current[1].setPosition(trackPoints[trackPoints.length - 1]);
-    }
-    if (boundsRef.current && mapRef.current) {
-      // mapRef.current.fitBounds(boundsRef.current);
+      markersRef.current[0].setPosition(trackPoints[trackPoints.length - 1]);
     }
   }, [trackPoints]);
 
